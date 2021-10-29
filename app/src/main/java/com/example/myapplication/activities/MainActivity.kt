@@ -3,8 +3,9 @@ package com.example.myapplication.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.model.entities.Personaje
+import com.example.myapplication.adapters.ListaPersonajesAdapter
 import com.example.myapplication.databinding.ActivityMainBinding
+import com.example.myapplication.model.dao.PersonajesDaoMockImpl
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,21 +13,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //Inflo las vistas
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // LayoutManager layoutManager = new LinearLayoutManager(this)
+        //Obtengo los datos de los personajes
+        val personajesDao = PersonajesDaoMockImpl()
+        val listaPersonajes = personajesDao.getTodos()
+
+        //Creo los componentes que necesita el ReciclerView con todos sus personajes
+        // LayoutManager layoutManager = new LinearLayoutManager(this) ---SEGUIDOS
+        //En lugar de LinearLayoutManager tambien hay GridLayoutManager ---EN CUADRICULA
         val layoutManager = LinearLayoutManager(this)
+        val adapter = ListaPersonajesAdapter(listaPersonajes)
 
-
-
-        val p = Personaje(0, "Daenerys", "Targaryen", "Mother of Dragons", "House Targaryen", "https://thronesapi.com/assets/images/daenerys.jpg")
-        val p2 = Personaje(0, "Samwell", "Tarly", "Samwell Tarly", "House Targaryen", "https://thronesapi.com/assets/images/daenerys.jpg")
-        val p3 = Personaje(0, "Jon", "Snow", "Jon Snow", "House Targaryen", "https://thronesapi.com/assets/images/daenerys.jpg")
-        val p4 = Personaje(0, "Daenerys", "Targaryen", "Mother of Dragons", "House Targaryen", "https://thronesapi.com/assets/images/daenerys.jpg")
-        val p5 = Personaje(0, "Daenerys", "Targaryen", "Mother of Dragons", "House Targaryen", "https://thronesapi.com/assets/images/daenerys.jpg")
-
-        val listaPersonajesGot = listOf(p , p2 , p3 ,p4 ,p5)
+        //Asocio el RecyclerView con sus componentes
+        binding.rvListaPersonajes.adapter = adapter
+        binding.rvListaPersonajes.layoutManager = layoutManager
     }
 }
