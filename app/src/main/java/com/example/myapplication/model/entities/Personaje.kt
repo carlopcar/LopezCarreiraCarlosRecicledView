@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.model.entities
 
 class Personaje (
     var id: Long,
