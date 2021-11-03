@@ -1,5 +1,4 @@
 package com.example.myapplication.adapters
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.model.entities.Personaje
+import com.squareup.picasso.Picasso
 
 class ListaPersonajesAdapter(val personajes: List<Personaje>) : RecyclerView.Adapter<ListaPersonajesAdapter.PersonajesViewHolder>() {
 
@@ -32,6 +32,8 @@ class ListaPersonajesAdapter(val personajes: List<Personaje>) : RecyclerView.Ada
         holder.tvNombreCompleto.setText(personaje.getNombreCompleto())
         holder.tvFamilia.setText(personaje.familia)
         holder.tvTitulo.setText(personaje.titulo)
+
+        Picasso.get().load(personaje.url).into(holder.ivFoto)
     }
 
     override fun getItemCount(): Int {
